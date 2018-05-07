@@ -1,0 +1,63 @@
+{
+  "name": "chat-demo-vue",
+  "private": true,
+  "dependencies": {
+    "@rails/webpacker": "3.4",
+    "@websanova/vue-auth": "^2.21.3-beta",
+    "actioncable": "^5.1.6",
+    "axios": "^0.18.0",
+    "babel-preset-react": "^6.24.1",
+    "bootstrap": "^4.0.0",
+    "jest": "^22.4.3",
+    "moment": "^2.22.0",
+    "prop-types": "^15.6.1",
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^4.0.8",
+    "redux": "^4.0.0",
+    "redux-thunk": "^2.2.0",
+    "redux-token-auth": "^0.19.0",
+    "vue": "^2.5.16",
+    "vue-axios": "^2.1.1",
+    "vue-jest": "^2.5.0",
+    "vue-loader": "^14.2.2",
+    "vue-moment": "^3.2.0",
+    "vue-router": "^3.0.1",
+    "vue-spinner": "^1.0.3",
+    "vue-template-compiler": "^2.5.16",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.14",
+    "babel-jest": "^22.4.3",
+    "jest": "^22.4.3",
+    "webpack-dev-server": "2.11.2"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "roots": [
+      "spec/javascript"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "app/javascript"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest",
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    }
+  }
+}
