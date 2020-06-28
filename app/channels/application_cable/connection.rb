@@ -1,12 +1,14 @@
+# frozen_string_literal: true
+
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
     identified_by :current_user
 
-    def connect      
-      self.current_user = find_verified_user    
-    end     
+    def connect
+      self.current_user = find_verified_user
+    end
 
-    private      
+    private
 
     def find_verified_user
       uid = request.query_parameters[:uid]
@@ -15,11 +17,11 @@ module ApplicationCable
 
       user = User.find_by_uid(uid)
 
-      if user && user.valid_token?(token, client_id)
-        user        
-      else          
-        reject_unauthorized_connection        
-      end      
-    end  
+      if user&.valid_token?(token, client_id)
+        user
+      else
+        reject_unauthorized_connection
+      end
+    end
   end
 end

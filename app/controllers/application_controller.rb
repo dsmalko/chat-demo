@@ -1,7 +1,7 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   include DeviseTokenAuth::Concerns::SetUserByToken
-  
-  #protect_from_forgery with: :exception
 
   before_action :configure_permitted_parameters, if: :devise_controller?
 
@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def application_pack_name
     case framework = params[:framework]
-    when 'react', 'vue' then
+    when 'react', 'vue'
       "application_#{framework}"
     else
       'application_vue'

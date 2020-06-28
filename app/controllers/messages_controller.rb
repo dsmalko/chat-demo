@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class MessagesController < ApplicationController
   before_action :authenticate_user!
-  
+
   def index
     @messages = Message.ordered.includes(:user).limit(500)
     render json: @messages
@@ -9,7 +11,7 @@ class MessagesController < ApplicationController
   def create
     message = current_user.messages.create!(message_params)
 
-    ActionCable.server.broadcast("chat", MessageSerializer.new(message).as_json)
+    ActionCable.server.broadcast('chat', MessageSerializer.new(message).as_json)
 
     render json: message
   end

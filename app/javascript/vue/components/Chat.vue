@@ -22,6 +22,7 @@
         <div class="chat-new-message">
           <form @submit.prevent="sendMessage">
             <input
+              id="message_body"
               ref="newMessageText"
               autofocus
               autocomplete="off"

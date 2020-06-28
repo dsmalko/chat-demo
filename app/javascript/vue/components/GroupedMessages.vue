@@ -1,6 +1,12 @@
 <template>
   <div class="chat-messages" ref="messages">
     <div class="chat-message-group" v-for="messageGroup in messageGroups">
+      <div class="chat-message-day-divider" v-if="messageGroup.dayDivider">
+        <hr class="chat-message-day-divider-line">
+        <div class="chat-message-day-divider-label">
+          {{messageGroup.time | relativeDate}}
+        </div>
+      </div>
       <div class="chat-message" v-for="message in messageGroup.messages">
         <div class="chat-message-gutter">
           <img v-if="message == messageGroup.messages[0]" :src="messageGroup.user.avatar_thumb_url" alt="" class="chat-message-avatar" width="36" height="36">
@@ -30,14 +36,28 @@
     props: [
       'messages'
     ],
+    filters: {
+      relativeDate(date) {
+        if (moment(date).format('L') == moment().format('L')) {
+          return 'Today'
+        } else if (moment(date).format('L') == moment().subtract(1, 'days').format('L')) {
+          return 'Yesterday'
+        } else {
+          return moment(date).format('dddd, LL')
+        }
+      }
+    },
     computed: {
       messageGroups() {
+        const groupingThresholdMinutes = 5
+
         return this.messages.reduce((acc, current) => {
           let previous = acc[acc.length - 1] 
 
           if (previous &&
               previous.user.id == current.user.id &&
-              moment.duration(moment(current.created_at).diff(moment(previous.time))).asMinutes() <= 5) {
+              moment(current.created_at).format('L') == moment(previous.time).format('L') &&
+              moment.duration(moment(current.created_at).diff(moment(previous.time))).asMinutes() <= groupingThresholdMinutes) {
             acc[acc.length - 1].messages.push(current)
 
             return [
@@ -47,6 +67,7 @@
             return [
               ...acc,
               {
+                dayDivider: !previous || moment(current.created_at).format('L') != moment(previous.time).format('L'),
                 time: current.created_at,
                 user: current.user,
                 messages: [current]

@@ -1,57 +1,53 @@
-FROM ruby:2.5-alpine
+FROM ruby:2.5.3-alpine
 
-ENV PATH /root/.yarn/bin:$PATH
+ARG RAILS_ENV
+ARG NODE_ENV
+ARG BUNDLE_JOBS=20
+ARG FOLDERS_TO_REMOVE
+ARG BUNDLE_WITHOUT
+ARG ADDITIONAL_PACKAGES
+ARG PRECOMPILE_ASSETS
+ARG YARN_INSTALL
+ARG SECRET_KEY_BASE
+ARG DEVISE_SECRET
 
-RUN apk update && apk upgrade && \
-    apk add --no-cache bash git openssh build-base nodejs tzdata postgresql-dev
+ENV RAILS_ENV ${RAILS_ENV}
+ENV NODE_ENV ${NODE_ENV}
+ENV SECRET_KEY_BASE does-not-matter
+ENV DEVISE_SECRET does-not-matter
 
-RUN apk update \
-  && apk add curl bash binutils tar gnupg \
-  && rm -rf /var/cache/apk/* \
-  && /bin/bash \
-  && touch ~/.bashrc \
-  && curl -o- -L https://yarnpkg.com/install.sh | bash \
-  && apk del curl tar binutils
+WORKDIR /app
 
-# Configure the main working directory. This is the base
-# directory used in any further RUN, COPY, and ENTRYPOINT
-# commands.
-WORKDIR /usr/src/app
+RUN apk add --update --no-cache --quiet \
+    build-base \
+    postgresql-dev \
+    imagemagick \
+    nodejs-current \
+    yarn \
+    tzdata \
+    openssh \
+    $ADDITIONAL_PACKAGES
 
-# Copy the Gemfile as well as the Gemfile.lock and install
-# the RubyGems. This is a separate step so the dependencies
-# will be cached unless changes to one of those two files
-# are made.
-#COPY Gemfile Gemfile.lock ./
-COPY . ./
-RUN gem install bundler && bundle install -j "$(getconf _NPROCESSORS_ONLN)" --retry 5 #--path .bundle
-# --without development test
+COPY Gemfile Gemfile.lock ./
+RUN bundle install --quiet $BUNDLE_WITHOUT --jobs $BUNDLE_JOBS \
+  && rm -rf /usr/local/bundle/cache/*.gem \
+  && find /usr/local/bundle/gems/ -name "*.c" -delete \
+  && find /usr/local/bundle/gems/ -name "*.o" -delete
 
-# Copy dependencies for Node.js and instance the packages.
-# Again, being separate means this will cache.
 COPY package.json yarn.lock ./
-RUN yarn install
-RUN npm rebuild node-sass --force
+RUN if [ ! -z "$YARN_INSTALL" ]; \
+    then \
+      yarn install --quiet; \
+    fi
 
-# Set Rails to run in production
-#ENV RAILS_ENV production 
-#ENV RACK_ENV production
-#ENV BUNDLE_PATH /usr/local/bundle
-ENV RAILS_ROOT /usr/src/app
-# Use Rails for static files in public
-#ENV RAILS_SERVE_STATIC_FILES 1
-# You must pass environment variable SECRET_KEY_BASE
-#ARG SECRET_KEY_BASE
-#ENV SECRET_KEY_BASE $SECRET_KEY_BASE
-ENV SECRET_KEY_BASE 1234
+COPY . .
 
-# Copy the main application.
-#COPY . ./
+RUN if [ ! -z "$PRECOMPILE_ASSETS" ]; \
+    then \
+      bundle exec rails assets:precompile; \
+    fi
 
-# Precompile Rails assets (plus Webpack)
-#RUN bundle exec rake assets:precompile
+RUN rm -rf $FOLDERS_TO_REMOVE
+RUN date -u > BUILD_TIME
 
-# Will run on port 3000 by default
-EXPOSE 3000
-# Start puma
-#CMD bundle exec puma -C config/puma.rb
+CMD ["docker/startup.sh"]

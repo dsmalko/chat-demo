@@ -8,7 +8,7 @@
           {{error}}
         </div>
         
-        <form>
+        <form @submit.prevent="login">
           <div class="form-group">
             <label for="user_email">Email</label>
             <input
@@ -25,7 +25,7 @@
               id="user_password"
               v-model="user.password">
           </div>
-          <button type="submit" class="btn btn-success" @click="login">Log in</button>
+          <button type="submit" class="btn btn-success">Log In</button>
           <router-link to="/signup" tag="button" class="btn btn-link">Signup</router-link>
         </form>
       </div>

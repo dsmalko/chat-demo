@@ -1,21 +1,29 @@
-class UserAvatarUploader < Shrine
-  plugin :processing
-  plugin :versions
-  plugin :default_url
+# frozen_string_literal: true
 
-  Attacher.default_url do |options|
-    "/assets/avatar.png"
+class UserAvatarUploader < CarrierWave::Uploader::Base
+  include CarrierWave::RMagick
+
+  version :thumb do
+    process resize_to_fill: [26, 26]
   end
 
-  process(:store) do |io, context|
-    original = io.download
-    pipeline = ImageProcessing::MiniMagick.source(original)
+  version :medium do
+    process resize_to_fill: [300, 300]
+  end
 
-    size_medium = pipeline.resize_to_fill!(300, 300)
-    size_thumb = pipeline.resize_to_fill!(36, 36)
+  def default_url(*_args)
+    '/assets/avatar.png'
+  end
 
-    original.close!
+  def extension_whitelist
+    %w[jpg jpeg png gif]
+  end
 
-    { original: io, medium: size_medium, thumb: size_thumb }
+  def content_type_whitelist
+    [%r{image/}]
+  end
+
+  def size_range
+    0..1.megabyte
   end
 end

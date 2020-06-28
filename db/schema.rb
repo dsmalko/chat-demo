@@ -10,17 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180417084718) do
+ActiveRecord::Schema.define(version: 2020_06_28_185028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "messages", force: :cascade do |t|
+    t.string "channel"
     t.bigint "user_id"
     t.text "text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "channel"
+    t.index ["channel"], name: "index_messages_on_channel"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
@@ -32,25 +33,15 @@ ActiveRecord::Schema.define(version: 20180417084718) do
     t.datetime "reset_password_sent_at"
     t.boolean "allow_password_change", default: false
     t.datetime "remember_created_at"
-    t.integer "sign_in_count", default: 0, null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string "current_sign_in_ip"
-    t.string "last_sign_in_ip"
-    t.string "confirmation_token"
-    t.datetime "confirmed_at"
-    t.datetime "confirmation_sent_at"
-    t.string "unconfirmed_email"
     t.string "nickname"
     t.string "email"
+    t.string "avatar"
     t.json "tokens"
-    t.boolean "online", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.json "avatar"
-    t.json "avatar_data"
-    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.boolean "online", default: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["online"], name: "index_users_on_online"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end

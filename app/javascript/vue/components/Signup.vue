@@ -8,20 +8,20 @@
           {{error}}
         </div>
 
-        <form>
+        <form @submit.prevent="signup">
           <div class="form-group">
             <label for="user_email">Email</label>
-            <input type="email" class="form-control" id="user_email" autocomplete="off" v-model="user.email">
-          </div>
-          <div class="form-group">
-            <label for="user_password">Password</label>
-            <input type="password" class="form-control" id="user_password" autocomplete="new-password" v-model="user.password">
+            <input type="email" class="form-control" id="user_email" autocomplete="login" v-model="user.email">
           </div>
           <div class="form-group">
             <label for="user_nickname">Nickname</label>
             <input type="nickname" class="form-control" id="user_nickname" autocomplete="off" v-model="user.nickname">
           </div>
-          <button type="submit" class="btn btn-success" @click="signup">Signup</button>
+          <div class="form-group">
+            <label for="user_password">Password</label>
+            <input type="password" class="form-control" id="user_password" autocomplete="new-password" v-model="user.password">
+          </div>
+          <button type="submit" class="btn btn-success">Signup</button>
           <router-link to="/login" tag="button" class="btn btn-link">Login</router-link>
         </form>
       </div>
@@ -48,7 +48,8 @@
         this.errors = []
         
         axios.post('/auth.json', {
-          ...this.user
+          ...this.user,
+          confirm_success_url: '/'
         }).then((response) => {
           console.log('this.$auth.login')
           this.$auth.login({
