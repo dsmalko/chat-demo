@@ -1,0 +1,50 @@
+version: '3'
+services:
+  app: &app_base
+    env_file: .env
+    build:
+      context: .
+      args:
+        - RAILS_ENV=production
+        - NODE_ENV=production
+        - BUNDLE_WITHOUT=--without development test
+        - YARN_INSTALL=1
+        - PRECOMPILE_ASSETS=1
+        - FOLDERS_TO_REMOVE=spec test node_modules app/assets vendor/assets lib/assets tmp/cache
+    restart: always
+    depends_on:
+      - db
+      - redis
+    environment:
+      - RAILS_ENV=production
+      - RAILS_LOG_TO_STDOUT=1
+      - REDIS_URL=redis://redis:6379/1
+    volumes:
+      - assets:/app/public/assets
+      - packs:/app/public/packs
+  web:
+    build:      
+      context: .      
+      dockerfile: ./docker/web/Dockerfile
+    ports:
+      - 80:80
+    depends_on:      
+      - app
+    volumes:
+      - assets:/app/public/assets
+      - packs:/app/public/packs
+  db:
+    image: postgres:10.6-alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data
+  redis:
+    image: redis:alpine
+    volumes:
+      - redis-data:/data
+volumes:
+  db-data:
+  redis-data:
+  assets:
+    external: false
+  packs:
+    external: false

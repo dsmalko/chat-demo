@@ -1,0 +1,15 @@
+.user-menu-avatar {
+  display: inline-block;
+
+  img {
+    width: 24px;
+    height: 24px;
+    border-radius: 4px;
+  }
+}
+
+.user-menu-nickname {
+  display: inline-block;
+  vertical-align: middle;
+  padding: 6px 12px 6px 6px;
+}

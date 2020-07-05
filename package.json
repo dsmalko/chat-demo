@@ -1,0 +1,57 @@
+{
+  "name": "chat-demo-vue",
+  "private": true,
+  "dependencies": {
+    "@rails/actioncable": "^6.0.0",
+    "@rails/ujs": "^6.0.0",
+    "@rails/webpacker": "4.2.2",
+    "@websanova/vue-auth": "^2.21.3-beta",
+    "axios": "^0.18.0",
+    "bootstrap": "^4.0.0",
+    "jest": "^22.4.3",
+    "moment": "^2.22.0",
+    "prop-types": "^15.6.1",
+    "upath": "^1.1.0",
+    "vue": "^2.6.11",
+    "vue-axios": "^2.1.1",
+    "vue-jest": "^2.5.0",
+    "vue-loader": "^15.9.3",
+    "vue-moment": "^3.2.0",
+    "vue-router": "^3.0.1",
+    "vue-spinner": "^1.0.3",
+    "vue-template-compiler": "^2.6.11",
+    "vuex": "^3.0.1"
+  },
+  "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.14",
+    "babel-jest": "^22.4.3",
+    "eslint": "^7.4.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "jest": "^22.4.3",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "roots": [
+      "spec/javascript"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "app/javascript"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "<rootDir>/node_modules/vue-jest",
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    }
+  }
+}
