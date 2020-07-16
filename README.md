@@ -1,8 +1,8 @@
 # Realtime Group Chat Demo
 
-[Vue demo](https://chat-demo.herokuapp.com?framework=vue)
+[Vue demo](https://chat-demo-vue.herokuapp.com?framework=vue)
 
-[React demo](https://chat-demo.herokuapp.com?framework=react)
+[React demo](https://chat-demo-vue.herokuapp.com?framework=react)
 
 Features:
 
