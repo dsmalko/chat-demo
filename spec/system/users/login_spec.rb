@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Login' do
+describe 'Login', type: :system do
   let!(:user) { create(:user) }
 
   context 'with valid email/password', js: true do
@@ -10,7 +10,7 @@ describe 'Login' do
       visit root_path
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: user.password
-      click_button 'Log In'
+      click_button 'Log in'
 
       expect(page).to have_link 'Log out'
     end
@@ -21,7 +21,7 @@ describe 'Login' do
       visit root_path
       fill_in 'user_email', with: user.email
       fill_in 'user_password', with: 'invalid'
-      click_button 'Log In'
+      click_button 'Log in'
 
       expect(current_path).to eq root_path
       expect(page).to have_content 'Invalid login credentials. Please try again.'

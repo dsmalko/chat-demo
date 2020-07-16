@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Signup' do
+describe 'Signup', type: :system do
   let(:new_user) { build_stubbed(:user) }
 
   context 'with no errors' do

@@ -1,14 +1,16 @@
 # Realtime Group Chat Demo
 
-[DEMO](https://chat-demo-vue.herokuapp.com)
+[Vue demo](https://chat-demo.herokuapp.com?framework=vue)
+
+[React demo](https://chat-demo.herokuapp.com?framework=react)
 
 Features:
 
 * Rails backend
 * Vue.js frontend
 * React frontend
-* Token authentication
-* Websocket token authentication
+* JWT authentication
+* Websocket JWT authentication
 * Channels
 * Message grouping by sender/time
 * User Avatars

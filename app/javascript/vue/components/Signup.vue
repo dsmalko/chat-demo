@@ -51,7 +51,6 @@
           ...this.user,
           confirm_success_url: '/'
         }).then((response) => {
-          console.log('this.$auth.login')
           this.$auth.login({
             data: this.user,
             rememberMe: true

@@ -10,4 +10,15 @@ class ApplicationController < ActionController::Base
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: [:nickname])
   end
+
+  def application_pack_name
+    case framework = params[:framework]
+    when 'react', 'vue'
+      "application_#{framework}"
+    else
+      'application_vue'
+    end
+  end
+
+  helper_method :application_pack_name
 end

@@ -25,8 +25,13 @@
               id="user_password"
               v-model="user.password">
           </div>
-          <button type="submit" class="btn btn-success">Log In</button>
+          <button type="submit" class="btn btn-success">Log in</button>
           <router-link to="/signup" tag="button" class="btn btn-link">Signup</router-link>
+          <hr>
+          <div class="mt-2 small">
+            Vue.js version |
+            <a href="/?framework=react">Switch to React version</a>
+          </div>
         </form>
       </div>
     </div>

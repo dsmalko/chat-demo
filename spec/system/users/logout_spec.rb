@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Logout' do
+describe 'Logout', type: :system do
   let!(:user) { create(:user) }
 
   before do
