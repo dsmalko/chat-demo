@@ -14,6 +14,7 @@ class Channels extends React.Component {
               to={'/channel/' + channel}
               key={idx}
               className={"channel " + (channel == this.props.currentChannel ? 'selected' : '')}
+              replace
               >
               # {channel}
             </Link>

@@ -1,7 +1,11 @@
 import React, { Fragment } from 'react'
 import { Provider } from 'react-redux'
-import { HashRouter, Route, Link } from 'react-router-dom'
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import {
+  HashRouter as Router,
+  Switch,
+  Route,
+  Link
+} from 'react-router-dom'
 import { generateRequireSignInWrapper } from 'redux-token-auth'
 import { verifyCredentials } from './redux-token-auth-config'
 import store from './store'
@@ -18,15 +22,15 @@ verifyCredentials(store);
 
 const App = () => (
   <Provider store={store}>
-    <HashRouter store={store}>
-      <Fragment>
+    <Router>
+      <Switch>
         <Route exact={true} path="/" component={requireSignIn(Chat)} />
         <Route exact={true} path="/channel/:channelId" component={requireSignIn(Chat)} />
         <Route exact={true} path="/profile" component={requireSignIn(Profile)} />
         <Route exact={true} path="/login" component={Login} />
         <Route exact={true} path="/signup" component={Signup} />
-      </Fragment>
-    </HashRouter>
+      </Switch>
+    </Router>
   </Provider>
 )
 

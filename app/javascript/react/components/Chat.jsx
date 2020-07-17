@@ -42,8 +42,8 @@ class Chat extends React.Component {
      }
   }
 
-  componentDidUpdate(nextProps) {
-    const { match: { params } } = nextProps
+  componentDidUpdate() {
+    const { match: { params } } = this.props
     
     if (params.channelId) {
       this.props.setCurrentChannel(params.channelId)
