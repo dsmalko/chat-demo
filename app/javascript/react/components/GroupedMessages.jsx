@@ -9,12 +9,16 @@ class GroupedMessages extends React.Component {
   }
 
   messageGroups() {
+    const groupingThresholdMinutes = 5
+
     return this.props.messages.reduce((acc, current) => {
       let previous = acc[acc.length - 1] 
 
       if (previous &&
           previous.user.id == current.user.id &&
-          moment.duration(moment(current.created_at).diff(moment(previous.time))).asMinutes() <= 5) {
+          moment(current.created_at).format('L') == moment(previous.time).format('L') &&
+          moment.duration(moment(current.created_at).diff(moment(previous.time))).asMinutes() <= groupingThresholdMinutes) {
+          //moment.duration(moment(current.created_at).diff(moment(previous.time))).asMinutes() <= groupingThresholdMinutes) {
         acc[acc.length - 1].messages.push(current)
 
         return [
@@ -24,6 +28,7 @@ class GroupedMessages extends React.Component {
         return [
           ...acc,
           {
+            dayDivider: !previous || moment(current.created_at).format('L') != moment(previous.time).format('L'),
             time: current.created_at,
             user: current.user,
             messages: [current]
@@ -41,12 +46,31 @@ class GroupedMessages extends React.Component {
     this.scrollMessages()
   }
 
+  relativeDate(date) {
+    if (moment(date).format('L') == moment().format('L')) {
+      return 'Today'
+    } else if (moment(date).format('L') == moment().subtract(1, 'days').format('L')) {
+      return 'Yesterday'
+    } else {
+      return moment(date).format('dddd, LL')
+    }
+  }
+
   render() {
     return (
       <div className="chat-messages" ref={this.messagesRef}>
         {this.messageGroups().map((messageGroup, idx) => {
           return (
             <div key={idx} className="chat-message-group">
+              {messageGroup.dayDivider && (
+                <div className="chat-message-day-divider">
+                  <hr className="chat-message-day-divider-line" />
+                  <div className="chat-message-day-divider-label">
+                    {this.relativeDate(messageGroup.time)}
+                  </div>
+                </div>
+              )}
+
               {messageGroup.messages.map((message, messageIdx) => {
                 return (
                   <div key={messageIdx} className="chat-message">
@@ -63,7 +87,7 @@ class GroupedMessages extends React.Component {
                               {message.user.nickname}
                             </span>
                             <span> </span>
-                            <span className="chat-message-timestamp">
+                            <span className="chat-message-timestamp" title={moment(message.created_at).format()}>
                               {moment(message.created_at).format('LT')}
                             </span>
                           </div>
