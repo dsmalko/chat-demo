@@ -2,6 +2,7 @@
   "name": "chat-demo-vue",
   "private": true,
   "dependencies": {
+    "@babel/preset-react": "^7.10.4",
     "@rails/actioncable": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
@@ -31,7 +32,6 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "@babel/preset-react": "^7.10.4",
     "@vue/test-utils": "^1.0.0-beta.14",
     "babel-jest": "^22.4.3",
     "eslint": "^7.4.0",
