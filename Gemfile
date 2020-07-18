@@ -44,7 +44,7 @@ group :development do
   gem 'httplog'
   gem 'pry-rails'
   gem 'rubocop'
-  gem 'derailed_benchmarks', group: :development
+  gem 'derailed_benchmarks'
 end
 
 group :test do
@@ -67,8 +67,6 @@ gem 'dotenv-rails'
 gem 'slim-rails'
 
 # Storage
-gem 'carrierwave'
-gem 'fog'
-gem 'fog-aws'
+gem 'carrierwave', '~> 1'
+gem 'carrierwave-aws'
 gem 'rmagick'
-# gem 'excon', '= 0.58'
