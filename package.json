@@ -2,7 +2,6 @@
   "name": "chat-demo-vue",
   "private": true,
   "dependencies": {
-    "@babel/preset-react": "^7.10.4",
     "@rails/actioncable": "^6.0.0",
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "4.2.2",
@@ -19,7 +18,7 @@
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0",
-    "redux-token-auth": "^0.19.0",
+    "redux-token-auth": "https://github.com/el-rotny/redux-token-auth",
     "upath": "^1.1.0",
     "vue": "^2.6.11",
     "vue-axios": "^2.1.1",
@@ -32,6 +31,7 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "@babel/preset-react": "^7.10.4",
     "@vue/test-utils": "^1.0.0-beta.14",
     "babel-jest": "^22.4.3",
     "eslint": "^7.4.0",

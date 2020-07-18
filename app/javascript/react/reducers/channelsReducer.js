@@ -1,9 +1,9 @@
-import { SET_CURRENT_CHANNEL } from '../actions/types';
+import { SET_CURRENT_CHANNEL } from '../actions/types'
 
 const initialState = {
   all: ['general', 'support'],
   current: 'general'
-};
+}
 
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -11,8 +11,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         current: action.payload
-      };
+      }
     default:
-      return state;
+      return state
   }
 }

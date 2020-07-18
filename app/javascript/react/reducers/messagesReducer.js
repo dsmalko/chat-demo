@@ -1,11 +1,11 @@
-import { FETCH_MESSAGES, ADD_MESSAGE } from '../actions/types';
+import { FETCH_MESSAGES, ADD_MESSAGE } from '../actions/types'
 
 const initialState = {
   all: [],
   byChannel(channel) {
     return this.all.filter(message => message.channel == channel)
   }
-};
+}
 
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -13,13 +13,13 @@ export default function(state = initialState, action) {
       return {
         ...state,
         all: action.payload
-      };
+      }
     case ADD_MESSAGE:
       return {
         ...state,
         all: [...state.all, action.payload]
-      };
+      }
     default:
-      return state;
+      return state
   }
 }

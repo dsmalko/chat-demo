@@ -1,8 +1,8 @@
-import { SET_USERS_ONLINE } from '../actions/types';
+import { SET_USERS_ONLINE } from '../actions/types'
 
 const initialState = {
   online: [],
-};
+}
 
 export default function(state = initialState, action) {
   switch (action.type) {
@@ -10,8 +10,8 @@ export default function(state = initialState, action) {
       return {
         ...state,
         online: action.payload
-      };
+      }
     default:
-      return state;
+      return state
   }
 }

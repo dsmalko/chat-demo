@@ -38,10 +38,10 @@ Capybara::Screenshot.register_driver(:headless_chrome) do |driver, path|
   driver.browser.save_screenshot(path)
 end
 
-# RSpec.configure do |config|
-#   config.after(type: :system) do
-#     if page.driver.browser.manage
-#       STDERR.puts page.driver.browser.manage.logs.get(:browser)
-#     end
-#   end
-# end
+RSpec.configure do |config|
+  config.after(type: :system) do
+    if page.driver.browser.manage
+      STDERR.puts page.driver.browser.manage.logs.get(:browser)
+    end
+  end
+end

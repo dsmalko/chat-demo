@@ -25,9 +25,9 @@ class Profile extends React.Component {
       .then(() => {
         this.props.history.push('/')
       })
-      .catch(error => {
+      .catch(errors => {
         this.setState({
-          errors: error.response.data.errors.full_messages
+          errors: errors
         })
       })
   }

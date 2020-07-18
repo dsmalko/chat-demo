@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module LoginHelpers
-  def login_with(user, framework = 'vue')
+  def login_with(user, framework:)
     visit root_path(framework: framework)
     fill_in 'user_email', with: user.email
     fill_in 'user_password', with: user.password

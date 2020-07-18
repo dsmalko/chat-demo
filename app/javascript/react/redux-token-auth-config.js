@@ -36,25 +36,28 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   (response) => {
-    const accessToken = response.headers['access-token'];
-    console.log("Access token: ", accessToken)
+    const accessToken = response.headers['access-token']
+    console.log("Response access token: ", accessToken)
 
     if (accessToken) {
       localStorage.setItem('access-token', accessToken)
     }
-    return response;
+    
+    return response
   },
   (error) => {
-    const response = error.response;
-    const accessToken = response.headers['access-token'];
+    const response = error.response
+    const accessToken = response.headers['access-token']
+
     console.log("Access token (error): ", accessToken)
+
     if (accessToken) {
       localStorage.setItem('access-token', accessToken)
     }
 
     return Promise.reject(error)
   }
-);
+)
 
 const {
   registerUser,

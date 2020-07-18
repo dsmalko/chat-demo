@@ -48,7 +48,6 @@ end
 
 group :test do
   gem 'capybara-screenshot'
-  # gem "chromedriver-helper"
   gem 'factory_bot_rails'
   gem 'ffaker', '~> 2.1.0'
   gem 'rspec-json_expectations'

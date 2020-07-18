@@ -11,6 +11,6 @@ export default reducer => (state, action) => {
         }
       }
     default:
-      return reducer(state, action);
+      return reducer(state, action)
   }
-};
+}
