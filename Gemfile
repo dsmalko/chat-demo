@@ -44,6 +44,7 @@ group :development do
   gem 'httplog'
   gem 'pry-rails'
   gem 'rubocop'
+  gem 'derailed_benchmarks', group: :development
 end
 
 group :test do
