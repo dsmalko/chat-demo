@@ -69,4 +69,4 @@ gem 'slim-rails'
 # Storage
 gem 'carrierwave', '~> 1'
 gem 'carrierwave-aws'
-gem 'rmagick'
+gem 'mini_magick'

@@ -1,4 +1,4 @@
-FROM ruby:2.5.3-alpine
+FROM ruby:2.6.6-alpine
 
 ARG RAILS_ENV
 ARG NODE_ENV
@@ -29,6 +29,7 @@ RUN apk add --update --no-cache --quiet \
     $ADDITIONAL_PACKAGES
 
 COPY Gemfile Gemfile.lock ./
+RUN gem install bundler
 RUN bundle install --quiet $BUNDLE_WITHOUT --jobs $BUNDLE_JOBS \
   && rm -rf /usr/local/bundle/cache/*.gem \
   && find /usr/local/bundle/gems/ -name "*.c" -delete \

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UserAvatarUploader < CarrierWave::Uploader::Base
-  include CarrierWave::RMagick
+  include CarrierWave::MiniMagick
 
   version :thumb do
     process resize_to_fill: [36, 36]
